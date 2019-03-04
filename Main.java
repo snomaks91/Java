@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         int arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        int n = 2;
+        int n = -5;
         System.out.println("Задание 1:");
         zamena();
         System.out.println();
@@ -139,21 +139,44 @@ public class Main {
             } else {
                 if (n < 0) {
                     n *= -1;
-                }
-                for (int i = n; i < l; i += n) {
-                    while (j < n) {
-                        if (i >= l) {
-                            break;
+                    j = l - 1;
+                    for (int i = l - n - 1; i >= 0; i -= n) {
+                        while (j > l - n - 1) {
+                            if (i < 0) {
+                                break;
+                            }
+                            m = arr[i];
+                            arr[i] = arr[j];
+                            arr[j] = m;
+                            j--;
+                            i--;
                         }
-                        m = arr[i];
-                        arr[i] = arr[j];
-                        arr[j] = m;
-                        j++;
-                        i++;
+                        i += n;
+                        o = j - 1;
+                        j = l - 1;
                     }
-                    i -= j;
-                    o = j - 1;
-                    j = 0;
+                    for (int i = l - 1; i > l - n - 1; i--) {
+                        arr[i] = 0;
+                    }
+                } else {
+                    for (int i = n; i < l; i += n) {
+                        while (j < n) {
+                            if (i >= l) {
+                                break;
+                            }
+                            m = arr[i];
+                            arr[i] = arr[j];
+                            arr[j] = m;
+                            j++;
+                            i++;
+                        }
+                        i -= j;
+                        o = j - 1;
+                        j = 0;
+                    }
+                    for (int i = 0; i < n; i++) {   // Заполнение нулями
+                        arr[i] = 0;
+                    }
                 }
 //       Круговой массив с переносом элементов, но пока работает немного некорректно (закончились идеи)
 //                if (o != n - 1) {
@@ -221,9 +244,6 @@ public class Main {
 //                                }
 //                             }
 //                    }
-                for (int i = 0; i < n; i++) {   // Заполнение нулями
-                    arr[i] = 0;
-                }
             }
             System.out.println(Arrays.toString(arr));
         }
